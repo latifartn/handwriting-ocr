@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Test input / sensitive documents
+scans/
+*.pdf
+*.png
+*.jpg
+*.jpeg
+
+# Generated outputs
+out/
+out_*/
+output/
+outputs/
+debug/
+dbg/
+dbg_*/
+*.xlsx
+*.xls
+*.txt
+
+# Local model / cache data
+models/
+model_cache/
+.cache/
+huggingface/
+transformers_cache/
+
+# Logs
+*.log
+
+# Secrets / local configuration
+.env
