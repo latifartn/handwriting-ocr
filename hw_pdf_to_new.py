@@ -16,6 +16,7 @@ Ollama must be running and BOTH models must be pulled, e.g.:
     ollama pull qwen2.5:7b
 """
 
+import time
 import argparse
 import base64
 import io
@@ -849,17 +850,23 @@ def main():
 
     for i, pdf in enumerate(pdfs, start=1):
         print(f"[{i}/{len(pdfs)}] Processing {pdf.name}...")
+        start_time = time.perf_counter()
+
         try:
             rows, raw, columns = process_pdf(pdf, args)
+            elapsed = time.perf_counter() - start_time
 
             if args.mode == "text":
                 out = out_dir / f"{pdf.stem}.txt"
                 out.write_text(raw, encoding="utf-8")
                 print(f"    -> {out}")
+                print(f"    time: {elapsed:.2f} seconds")
+
             else:
                 out = out_dir / f"{pdf.stem}.xlsx"
                 write_xlsx(out, rows, columns=columns, raw_ocr=raw)
                 print(f"    -> {out}")
+                print(f"    time: {elapsed:.2f} seconds")
                 filled = sum(1 for r in rows
                              if any(str(v).strip() for k, v in r.items()
                                     if not k.startswith("_") and k != "Field"))
